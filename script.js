@@ -11,7 +11,7 @@ async function start() {
   container.style.position = 'relative'
   document.body.append(container)
   const labeledFaceDescriptors = await loadLabeledImages()
-  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.1)
+  const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.7)
   let image
   let canvas
   document.body.append('Loaded')
@@ -36,11 +36,11 @@ async function start() {
 }
 
 function loadLabeledImages() {
-  const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark', 'Leandro', 'Bert']
+  const labels = ['Leandro', 'Bert']
   return Promise.all(
     labels.map(async label => {
       const descriptions = []
-      for (let i = 1; i <= 1; i++) {
+      for (let i = 1; i <= 2; i++) {
         const img = await faceapi.fetchImage(`https://raw.githubusercontent.com/lvaoliveira/faces/master/labeled_images/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
